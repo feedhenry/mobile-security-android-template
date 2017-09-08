@@ -1,8 +1,14 @@
 package com.feedhenry.securenativeandroidtemplate;
 
+
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.content.Intent;
+
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -11,20 +17,35 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.view.View;
 
+import com.feedhenry.securenativeandroidtemplate.authenticate.AuthenticateResult;
 import com.feedhenry.securenativeandroidtemplate.authenticate.KeycloakAuthenticateProviderImpl;
 import com.feedhenry.securenativeandroidtemplate.authenticate.OpenIDAuthenticationProvider;
+import com.feedhenry.securenativeandroidtemplate.domain.models.Note;
+import com.feedhenry.securenativeandroidtemplate.navigation.Navigator;
+import com.feedhenry.securenativeandroidtemplate.storagesample.ui.NotesListFragment;
+
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjection;
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasFragmentInjector;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, OpenIDAuthenticationProvider {
+        implements NavigationView.OnNavigationItemSelectedListener, NotesListFragment.NoteListListener,  OpenIDAuthenticationProvider, HasFragmentInjector {
 
     private String infoText;
     private KeycloakAuthenticateProviderImpl keycloak = new KeycloakAuthenticateProviderImpl(this);
+
+    @Inject
+    DispatchingAndroidInjector<Fragment> fragmentInjector;
+
+    @Inject
+    Navigator navigator;
 
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
@@ -32,6 +53,7 @@ public class MainActivity extends AppCompatActivity
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -60,9 +82,8 @@ public class MainActivity extends AppCompatActivity
                 builder.show();
             }
         });
-
-        // Load the home fragment by default
-        loadFragment(new HomeFragment());
+        // load the main menu fragment
+        navigator.navigateToHomeView(this);
     }
 
 
@@ -132,12 +153,16 @@ public class MainActivity extends AppCompatActivity
         // Visit the Authentication Screen
         if (id == R.id.nav_home) {
             setInformationText(getString(R.string.popup_home_fragment));
-            loadFragment(new HomeFragment());
+            navigator.navigateToHomeView(this);
         }
         // Visit the Authentication Screen
         if (id == R.id.nav_authentication) {
             setInformationText(getString(R.string.popup_authentication_fragment));
-            loadFragment(new AuthenticationFragment());
+            navigator.navigateToAuthenticationView(this);
+        }
+
+        if (id == R.id.nav_storage) {
+            navigator.navigateToStorageView(this);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -153,20 +178,16 @@ public class MainActivity extends AppCompatActivity
         Snackbar.make(getCurrentFocus(), message, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
     }
 
-    /**
-     * Fragment loader to load a new fragment
-     * @param fragment - the fragment to load
-     */
-    public void loadFragment(Fragment fragment) {
-        // create a FragmentManager
-        FragmentManager fm = getFragmentManager();
-        // create a FragmentTransaction to begin the transaction and replace the Fragment
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        // replace the FrameLayout with new Fragment
-        fragmentTransaction.replace(R.id.frameLayout, fragment);
-        fragmentTransaction.commit(); // save the changes
+    @Override
+    public AndroidInjector<Fragment> fragmentInjector() {
+        return fragmentInjector;
     }
 
+    @Override
+    public void onNoteClicked(Note note) {
+        Log.i("SecureAndroidApp", "Note selected: " + note.getContent());
+        navigator.navigateToSingleNoteView(this, note);
+    }
 }
 
 

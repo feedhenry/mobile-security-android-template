@@ -3,6 +3,8 @@ package com.feedhenry.securenativeandroidtemplate;
 import android.app.Fragment;
 import android.support.test.rule.ActivityTestRule;
 
+import com.feedhenry.securenativeandroidtemplate.navigation.Navigator;
+
 import org.junit.Rule;
 
 /**
@@ -14,6 +16,7 @@ class FragmentTestBase {
     public ActivityTestRule activityRule = new ActivityTestRule(MainActivity.class);
 
     public void loadFragment(Fragment fragmentUnderTest) {
-        ((MainActivity) activityRule.getActivity()).loadFragment(fragmentUnderTest);
+        Navigator navigator = new Navigator();
+        navigator.loadFragment(activityRule.getActivity(), fragmentUnderTest);
     }
 }

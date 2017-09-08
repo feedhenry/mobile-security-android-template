@@ -26,12 +26,8 @@ public class AuthenticationFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        try {
-            if(activity instanceof OpenIDAuthenticationProvider) {
-                keycloakListener = (OpenIDAuthenticationProvider) activity;
-            }
-        } catch (ClassCastException castException) {
-            /** The activity does not implement the listener. */
+        if(activity instanceof OpenIDAuthenticationProvider) {
+            keycloakListener = (OpenIDAuthenticationProvider) activity;
         }
     }
 
