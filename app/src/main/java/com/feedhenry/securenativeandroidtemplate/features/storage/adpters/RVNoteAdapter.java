@@ -1,4 +1,4 @@
-package com.feedhenry.securenativeandroidtemplate.storagesample.ui.adpters;
+package com.feedhenry.securenativeandroidtemplate.features.storage.adpters;
 
 import android.content.Context;
 import android.support.v7.widget.CardView;

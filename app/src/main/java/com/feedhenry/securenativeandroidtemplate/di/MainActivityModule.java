@@ -1,11 +1,8 @@
 package com.feedhenry.securenativeandroidtemplate.di;
 
-import android.app.Activity;
-
 import com.feedhenry.securenativeandroidtemplate.MainActivity;
 
 import dagger.Module;
-import dagger.Provides;
 import dagger.android.ContributesAndroidInjector;
 
 /**
@@ -14,7 +11,7 @@ import dagger.android.ContributesAndroidInjector;
 @Module
 public abstract class MainActivityModule {
 
-    @ContributesAndroidInjector(modules = {NotesListFragmentModule.class})
+    @ContributesAndroidInjector(modules = {FragmentModules.class})
     abstract MainActivity contributeMainActivityInjector();
 
 }

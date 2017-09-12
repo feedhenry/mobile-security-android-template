@@ -1,4 +1,4 @@
-package com.feedhenry.securenativeandroidtemplate.authenticate;
+package com.feedhenry.securenativeandroidtemplate.features.authentication.providers;
 import android.content.Intent;
 import net.openid.appauth.AuthorizationResponse;
 

@@ -1,4 +1,4 @@
-package com.feedhenry.securenativeandroidtemplate.storagesample.ui;
+package com.feedhenry.securenativeandroidtemplate.features.storage;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -14,10 +14,10 @@ import android.widget.RelativeLayout;
 import com.feedhenry.securenativeandroidtemplate.R;
 import com.feedhenry.securenativeandroidtemplate.domain.models.Note;
 import com.feedhenry.securenativeandroidtemplate.mvp.views.BaseFragment;
-import com.feedhenry.securenativeandroidtemplate.storagesample.ui.adpters.RVNoteAdapter;
-import com.feedhenry.securenativeandroidtemplate.storagesample.ui.presenters.NoteListPresenter;
-import com.feedhenry.securenativeandroidtemplate.storagesample.ui.views.NoteListAppView;
-import com.feedhenry.securenativeandroidtemplate.storagesample.ui.views.NoteListAppViewImpl;
+import com.feedhenry.securenativeandroidtemplate.features.storage.adpters.RVNoteAdapter;
+import com.feedhenry.securenativeandroidtemplate.features.storage.presenters.NoteListPresenter;
+import com.feedhenry.securenativeandroidtemplate.features.storage.views.NoteListAppView;
+import com.feedhenry.securenativeandroidtemplate.features.storage.views.NoteListAppViewImpl;
 
 import java.util.List;
 
@@ -134,6 +134,11 @@ public class NotesListFragment extends BaseFragment<NoteListPresenter, NoteListA
                 rlProgress.setVisibility(View.GONE);
             }
         };
+    }
+
+    @Override
+    public int getHelpMessageResourceId() {
+        return R.string.popup_storage_fragment;
     }
 
     private void setupRecyclerView() {

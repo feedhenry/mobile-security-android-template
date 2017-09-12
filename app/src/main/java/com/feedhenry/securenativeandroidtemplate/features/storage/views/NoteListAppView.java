@@ -1,9 +1,8 @@
-package com.feedhenry.securenativeandroidtemplate.storagesample.ui.views;
+package com.feedhenry.securenativeandroidtemplate.features.storage.views;
 
 import com.feedhenry.securenativeandroidtemplate.domain.models.Note;
 import com.feedhenry.securenativeandroidtemplate.mvp.views.AppView;
 
-import java.util.Collection;
 import java.util.List;
 
 /**

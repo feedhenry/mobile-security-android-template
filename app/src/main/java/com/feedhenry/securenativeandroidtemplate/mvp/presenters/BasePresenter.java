@@ -9,7 +9,7 @@ import com.feedhenry.securenativeandroidtemplate.mvp.views.AppView;
  * A base implementation for the presenter interface
  */
 
-public abstract class BasePresenter<VIEW extends AppView> implements Presenter<VIEW> {
+public class BasePresenter<VIEW extends AppView> implements Presenter<VIEW> {
     protected VIEW view;
 
     @Override

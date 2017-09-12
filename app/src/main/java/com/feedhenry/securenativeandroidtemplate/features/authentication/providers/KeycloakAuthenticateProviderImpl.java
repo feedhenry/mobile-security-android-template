@@ -1,4 +1,4 @@
-package com.feedhenry.securenativeandroidtemplate.authenticate;
+package com.feedhenry.securenativeandroidtemplate.features.authentication.providers;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -12,10 +12,11 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 
-import com.feedhenry.securenativeandroidtemplate.AuthenticationDetailsFragment;
-import com.feedhenry.securenativeandroidtemplate.AuthenticationFragment;
+import com.feedhenry.securenativeandroidtemplate.features.authentication.AuthenticationDetailsFragment;
+import com.feedhenry.securenativeandroidtemplate.features.authentication.AuthenticationFragment;
 import com.feedhenry.securenativeandroidtemplate.MainActivity;
 import com.feedhenry.securenativeandroidtemplate.R;
+import com.feedhenry.securenativeandroidtemplate.features.authentication.providers.OpenIDAuthenticationProvider;
 
 import net.openid.appauth.AppAuthConfiguration;
 import net.openid.appauth.AuthState;

@@ -1,44 +1,35 @@
 package com.feedhenry.securenativeandroidtemplate;
 
 
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AlertDialog;
-import android.content.Intent;
-
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 
-import com.feedhenry.securenativeandroidtemplate.authenticate.AuthenticateResult;
-import com.feedhenry.securenativeandroidtemplate.authenticate.KeycloakAuthenticateProviderImpl;
-import com.feedhenry.securenativeandroidtemplate.authenticate.OpenIDAuthenticationProvider;
 import com.feedhenry.securenativeandroidtemplate.domain.models.Note;
+import com.feedhenry.securenativeandroidtemplate.features.authentication.providers.KeycloakAuthenticateProviderImpl;
+import com.feedhenry.securenativeandroidtemplate.features.authentication.providers.OpenIDAuthenticationProvider;
+import com.feedhenry.securenativeandroidtemplate.features.storage.NotesListFragment;
 import com.feedhenry.securenativeandroidtemplate.navigation.Navigator;
-import com.feedhenry.securenativeandroidtemplate.storagesample.ui.NotesListFragment;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import dagger.android.AndroidInjection;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasFragmentInjector;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, NotesListFragment.NoteListListener,  OpenIDAuthenticationProvider, HasFragmentInjector {
 
-    private String infoText;
     private KeycloakAuthenticateProviderImpl keycloak = new KeycloakAuthenticateProviderImpl(this);
 
     @Inject
@@ -46,6 +37,15 @@ public class MainActivity extends AppCompatActivity
 
     @Inject
     Navigator navigator;
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawer;
+
+    @BindView(R.id.nav_view)
+    NavigationView navigationView;
 
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
@@ -56,32 +56,14 @@ public class MainActivity extends AppCompatActivity
         AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        ButterKnife.bind(this);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        // Default to the app description for the help popup
-        setInformationText(getString(R.string.app_description));
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.helpButton);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setTitle(getString(R.string.popup_title));
-                builder.setCancelable(true);
-                builder.setMessage(infoText);
-                builder.show();
-            }
-        });
         // load the main menu fragment
         navigator.navigateToHomeView(this);
     }
@@ -134,13 +116,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     /**
-     * Set the current text for the information dialog
-     */
-    public void setInformationText(String text) {
-        infoText = text;
-    }
-
-    /**
      * Handling for Sidebar Navigation
      * @param item - the menu item that was selected from the menu
      */
@@ -152,12 +127,10 @@ public class MainActivity extends AppCompatActivity
 
         // Visit the Authentication Screen
         if (id == R.id.nav_home) {
-            setInformationText(getString(R.string.popup_home_fragment));
             navigator.navigateToHomeView(this);
         }
         // Visit the Authentication Screen
         if (id == R.id.nav_authentication) {
-            setInformationText(getString(R.string.popup_authentication_fragment));
             navigator.navigateToAuthenticationView(this);
         }
 
@@ -168,14 +141,6 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    /**
-     * Show a snackbar message
-     * @param message
-     */
-    private void showSnackbar(String message) {
-        Snackbar.make(getCurrentFocus(), message, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
     }
 
     @Override
