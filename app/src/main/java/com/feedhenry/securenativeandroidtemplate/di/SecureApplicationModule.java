@@ -5,6 +5,8 @@ import android.content.Context;
 
 import com.feedhenry.securenativeandroidtemplate.domain.repositories.NoteRepository;
 import com.feedhenry.securenativeandroidtemplate.domain.repositories.NoteRepositoryImpl;
+import com.feedhenry.securenativeandroidtemplate.features.authentication.providers.KeycloakAuthenticateProviderImpl;
+import com.feedhenry.securenativeandroidtemplate.features.authentication.providers.OpenIDAuthenticationProvider;
 
 import javax.inject.Singleton;
 
@@ -18,18 +20,17 @@ import dagger.Provides;
 @Module
 public class SecureApplicationModule {
 
-    private final Application application;
-
-    public SecureApplicationModule(Application application) {
-        this.application = application;
-    }
-
     @Provides @Singleton
-    Context provideApplicationContext() {
-        return this.application;
+    Context provideApplicationContext(Application app) {
+        return app;
     }
 
     @Provides @Singleton NoteRepository provideNoteRepository(NoteRepositoryImpl noteRepository) {
         return noteRepository;
+    }
+
+    @Provides @Singleton
+    OpenIDAuthenticationProvider provideAuthProvider(KeycloakAuthenticateProviderImpl keycloakClient) {
+        return keycloakClient;
     }
 }

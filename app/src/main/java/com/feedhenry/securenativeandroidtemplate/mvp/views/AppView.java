@@ -19,8 +19,14 @@ public interface AppView {
     void hideLoading();
 
     /**
-     * Show an error message
-     * @param errorMessage the error
+     * Show a message using snackbar
+     * @param message the message to show
      */
-    void showError(String errorMessage);
+    void showMessage(String message);
+
+    /**
+     * Show a message using snackbar
+     * @param messageResourceId the resource id of the message
+     */
+    void showMessage(int messageResourceId);
 }

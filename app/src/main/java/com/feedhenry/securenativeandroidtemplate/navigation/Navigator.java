@@ -1,6 +1,8 @@
 package com.feedhenry.securenativeandroidtemplate.navigation;
 
 import android.app.FragmentTransaction;
+import android.os.Bundle;
+import android.util.Log;
 
 import com.feedhenry.securenativeandroidtemplate.BaseActivity;
 import com.feedhenry.securenativeandroidtemplate.features.authentication.AuthenticationDetailsFragment;
@@ -10,6 +12,8 @@ import com.feedhenry.securenativeandroidtemplate.R;
 import com.feedhenry.securenativeandroidtemplate.domain.models.Note;
 import com.feedhenry.securenativeandroidtemplate.features.storage.NotesListFragment;
 import com.feedhenry.securenativeandroidtemplate.mvp.views.BaseFragment;
+
+import net.openid.appauth.TokenResponse;
 
 import javax.inject.Inject;
 
@@ -33,8 +37,12 @@ public class Navigator {
         loadFragment(activity, authFragment);
     }
 
-    public void navigateToAuthenticateDetailsView(BaseActivity activity) {
+    public void navigateToAuthenticateDetailsView(BaseActivity activity, TokenResponse token) {
         AuthenticationDetailsFragment authDetailsView = new AuthenticationDetailsFragment();
+        Bundle args = new Bundle();
+        args.putString("accessToken", token.accessToken);
+        args.putString("idToken", token.idToken);
+        authDetailsView.setArguments(args);
         loadFragment(activity, authDetailsView);
     }
 
@@ -48,6 +56,7 @@ public class Navigator {
     }
 
     public void loadFragment(BaseActivity activity, BaseFragment fragment) {
+        Log.d("SecureDemoApp", "Loading fragment " + fragment.getClass().getSimpleName());
         activity.setInformationTextResourceId(fragment.getHelpMessageResourceId());
         // create a FragmentTransaction to begin the transaction and replace the Fragment
         FragmentTransaction fragmentTransaction = activity.getFragmentManager().beginTransaction();

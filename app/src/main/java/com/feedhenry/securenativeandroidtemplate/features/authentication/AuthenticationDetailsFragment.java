@@ -6,6 +6,7 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.feedhenry.securenativeandroidtemplate.R;
 import com.feedhenry.securenativeandroidtemplate.features.authentication.presenters.AuthenticationDetailsPresenter;
@@ -15,6 +16,8 @@ import com.feedhenry.securenativeandroidtemplate.mvp.views.BaseFragment;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import dagger.android.AndroidInjection;
 
 /**
@@ -24,6 +27,9 @@ public class AuthenticationDetailsFragment extends BaseFragment<AuthenticationDe
 
     @Inject
     AuthenticationDetailsPresenter authDetailsPresenter;
+
+    @BindView(R.id.authResView)
+    TextView authResField;
 
     View view;
 
@@ -36,6 +42,9 @@ public class AuthenticationDetailsFragment extends BaseFragment<AuthenticationDe
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_authentication_details, container, false);
+        ButterKnife.bind(this, view);
+        Bundle args = getArguments();
+        showAuthToken(args);
         return view;
     }
 
@@ -65,5 +74,13 @@ public class AuthenticationDetailsFragment extends BaseFragment<AuthenticationDe
     @Override
     public int getHelpMessageResourceId() {
         return R.string.popup_authentication_fragment;
+    }
+
+    private void showAuthToken(Bundle args) {
+        String accessToken = args.getString("accessToken");
+        String idToken = args.getString("idToken");
+        if (accessToken != null && idToken != null) {
+            authResField.setText("accessToken: " + accessToken + " \n idToken: " + idToken);
+        }
     }
 }

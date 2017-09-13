@@ -2,20 +2,17 @@ package com.feedhenry.securenativeandroidtemplate.features.authentication;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.feedhenry.securenativeandroidtemplate.R;
 import com.feedhenry.securenativeandroidtemplate.features.authentication.presenters.AuthenticationViewPresenter;
-import com.feedhenry.securenativeandroidtemplate.features.authentication.providers.OpenIDAuthenticationProvider;
 import com.feedhenry.securenativeandroidtemplate.features.authentication.views.AuthenticationView;
 import com.feedhenry.securenativeandroidtemplate.features.authentication.views.AuthenticationViewImpl;
-import com.feedhenry.securenativeandroidtemplate.mvp.presenters.Presenter;
-import com.feedhenry.securenativeandroidtemplate.mvp.views.AppView;
 import com.feedhenry.securenativeandroidtemplate.mvp.views.BaseFragment;
+
+import net.openid.appauth.TokenResponse;
 
 import javax.inject.Inject;
 
@@ -28,11 +25,22 @@ import dagger.android.AndroidInjection;
  */
 public class AuthenticationFragment extends BaseFragment<AuthenticationViewPresenter, AuthenticationView> {
 
+    public interface AuthenticationListener {
+
+        void onAuthSuccess(TokenResponse token);
+
+        void onAuthError(Exception error);
+
+        void onLogoutSuccess();
+
+        void onLogoutError();
+    }
+
     @Inject
     AuthenticationViewPresenter authenticationViewPresenter;
 
     private View view;
-    private OpenIDAuthenticationProvider keycloakListener;
+    private AuthenticationListener authenticationListener;
 
 
     public AuthenticationFragment() {
@@ -43,8 +51,8 @@ public class AuthenticationFragment extends BaseFragment<AuthenticationViewPrese
     public void onAttach(Activity activity) {
         AndroidInjection.inject(this);
         super.onAttach(activity);
-        if(activity instanceof OpenIDAuthenticationProvider) {
-            keycloakListener = (OpenIDAuthenticationProvider) activity;
+        if (activity instanceof AuthenticationListener) {
+            authenticationListener = (AuthenticationListener) activity;
         }
     }
 
@@ -71,7 +79,37 @@ public class AuthenticationFragment extends BaseFragment<AuthenticationViewPrese
     @Override
     protected AuthenticationView initView() {
         return new AuthenticationViewImpl(this) {
+            @Override
+            public void renderTokenInfo(TokenResponse token) {
+                showMessage(R.string.token_save_success);
+                if (authenticationListener != null) {
+                    authenticationListener.onAuthSuccess(token);
+                }
+            }
 
+            @Override
+            public void showAuthError(Exception error) {
+                showMessage(R.string.authentication_failed);
+                if (authenticationListener != null) {
+                    authenticationListener.onAuthError(error);
+                }
+            }
+
+            @Override
+            public void logoutSuccess() {
+                showMessage(R.string.logged_out);
+                if (authenticationListener != null) {
+                    authenticationListener.onLogoutSuccess();
+                }
+            }
+
+            @Override
+            public void logoutFailure() {
+                showMessage(R.string.logged_out_failed);
+                if (authenticationListener != null) {
+                    authenticationListener.onLogoutError();
+                }
+            }
         };
     }
 
@@ -81,16 +119,16 @@ public class AuthenticationFragment extends BaseFragment<AuthenticationViewPrese
     }
 
     @OnClick(R.id.keycloakLogin)
-    public void performAuth() {
-        if (keycloakListener != null) {
-            keycloakListener.performAuthRequest();
+    public void doLogin() {
+        if (authenticationViewPresenter != null) {
+            authenticationViewPresenter.doLogin();
         }
     }
 
     @OnClick(R.id.keycloakLogout)
-    public void performLogout() {
-        if (keycloakListener != null) {
-            keycloakListener.logout();
+    public void doLogout() {
+        if (authenticationViewPresenter != null) {
+            authenticationViewPresenter.doLogout();
         }
     }
 

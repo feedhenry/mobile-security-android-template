@@ -46,7 +46,7 @@ public class NoteListPresenter extends BasePresenter<NoteListAppView> {
             public void onError(Throwable error) {
                 if (view != null) {
                     view.hideLoading();
-                    view.showError(error.getMessage());
+                    view.showMessage(error.getMessage());
                 }
             }
         });

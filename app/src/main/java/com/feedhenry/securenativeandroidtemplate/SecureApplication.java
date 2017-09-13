@@ -27,7 +27,7 @@ public class SecureApplication extends Application implements HasActivityInjecto
         super.onCreate();
         DaggerSecureApplicationComponent
                 .builder()
-                .secureApplicationModule(new SecureApplicationModule(this))
+                .application(this)
                 .build()
                 .inject(this);
     }

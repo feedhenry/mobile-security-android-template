@@ -1,10 +1,7 @@
 package com.feedhenry.securenativeandroidtemplate.features.authentication.providers;
 import android.content.Intent;
-import net.openid.appauth.AuthorizationResponse;
 
-/**
- * Created by tjackman on 9/8/17.
- */
+import com.feedhenry.securenativeandroidtemplate.domain.callbacks.Callback;
 
 /**
  * An interface for OpenID Connect Authentication Providers
@@ -14,11 +11,17 @@ public interface OpenIDAuthenticationProvider {
         /**
          * Perform inital auth request to the auth endpoint
          */
-        public void performAuthRequest();
+        public void performAuthRequest(Callback authCallback);
 
         /**
          * Perform the logout flow
          */
-        public void logout();
+        public void logout(Callback logoutCallback);
+
+        /**
+         * Used for check the authentication response from the browser
+         * @param intent
+         */
+        public void checkIntent(Intent intent);
 
 }

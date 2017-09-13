@@ -14,7 +14,7 @@ import android.widget.RelativeLayout;
 import com.feedhenry.securenativeandroidtemplate.R;
 import com.feedhenry.securenativeandroidtemplate.domain.models.Note;
 import com.feedhenry.securenativeandroidtemplate.mvp.views.BaseFragment;
-import com.feedhenry.securenativeandroidtemplate.features.storage.adpters.RVNoteAdapter;
+import com.feedhenry.securenativeandroidtemplate.features.storage.adapters.RVNoteAdapter;
 import com.feedhenry.securenativeandroidtemplate.features.storage.presenters.NoteListPresenter;
 import com.feedhenry.securenativeandroidtemplate.features.storage.views.NoteListAppView;
 import com.feedhenry.securenativeandroidtemplate.features.storage.views.NoteListAppViewImpl;

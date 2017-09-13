@@ -2,6 +2,7 @@ package com.feedhenry.securenativeandroidtemplate.mvp.views;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.support.design.widget.Snackbar;
 import android.widget.Toast;
 
 import com.feedhenry.securenativeandroidtemplate.mvp.components.ProgressDialogHelper;
@@ -35,11 +36,17 @@ public abstract class BaseAppView implements AppView {
     }
 
     @Override
-    public void showError(String errorMessage) {
+    public void showMessage(String message) {
         Context ctx = getContext();
         if (ctx != null) {
-            Toast.makeText(ctx, errorMessage, Toast.LENGTH_LONG).show();
+            Snackbar.make(this.fragment.getActivity().getCurrentFocus(), message, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
         }
+    }
+
+    @Override
+    public void showMessage(int messageResId) {
+        Context ctx = getContext();
+        showMessage(ctx.getString(messageResId));
     }
 
     private Context getContext() {
