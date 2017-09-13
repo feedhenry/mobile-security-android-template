@@ -1,4 +1,5 @@
 package com.feedhenry.securenativeandroidtemplate.features.authentication.providers;
+import android.app.Activity;
 import android.content.Intent;
 
 import com.feedhenry.securenativeandroidtemplate.domain.callbacks.Callback;
@@ -11,7 +12,7 @@ public interface OpenIDAuthenticationProvider {
         /**
          * Perform inital auth request to the auth endpoint
          */
-        public void performAuthRequest(Callback authCallback);
+        public void performAuthRequest(Activity fromActivity, Callback authCallback);
 
         /**
          * Perform the logout flow
@@ -22,6 +23,6 @@ public interface OpenIDAuthenticationProvider {
          * Used for check the authentication response from the browser
          * @param intent
          */
-        public void checkIntent(Intent intent);
+        public void onAuthResult(Intent intent);
 
 }

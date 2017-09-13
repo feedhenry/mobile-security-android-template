@@ -1,10 +1,12 @@
 package com.feedhenry.securenativeandroidtemplate.navigation;
 
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.feedhenry.securenativeandroidtemplate.BaseActivity;
+import com.feedhenry.securenativeandroidtemplate.domain.Constants;
 import com.feedhenry.securenativeandroidtemplate.features.authentication.AuthenticationDetailsFragment;
 import com.feedhenry.securenativeandroidtemplate.features.authentication.AuthenticationFragment;
 import com.feedhenry.securenativeandroidtemplate.features.home.HomeFragment;
@@ -40,8 +42,7 @@ public class Navigator {
     public void navigateToAuthenticateDetailsView(BaseActivity activity, TokenResponse token) {
         AuthenticationDetailsFragment authDetailsView = new AuthenticationDetailsFragment();
         Bundle args = new Bundle();
-        args.putString("accessToken", token.accessToken);
-        args.putString("idToken", token.idToken);
+        args.putString(Constants.TOKEN_FIELDS.AUTH_TOKEN, token.jsonSerializeString());
         authDetailsView.setArguments(args);
         loadFragment(activity, authDetailsView);
     }
@@ -56,13 +57,23 @@ public class Navigator {
     }
 
     public void loadFragment(BaseActivity activity, BaseFragment fragment) {
-        Log.d("SecureDemoApp", "Loading fragment " + fragment.getClass().getSimpleName());
         activity.setInformationTextResourceId(fragment.getHelpMessageResourceId());
         // create a FragmentTransaction to begin the transaction and replace the Fragment
-        FragmentTransaction fragmentTransaction = activity.getFragmentManager().beginTransaction();
-        // replace the FrameLayout with new Fragment
-        fragmentTransaction.replace(R.id.frameLayout, fragment);
-        fragmentTransaction.commit(); // save the changes
+        FragmentManager fm = activity.getFragmentManager();
+        fm.beginTransaction()
+                .addToBackStack(null)
+                .replace(R.id.frameLayout, fragment)
+                .commit();
+    }
+
+    public boolean canGoBack(BaseActivity activity) {
+        FragmentManager fm = activity.getFragmentManager();
+        return fm.getBackStackEntryCount() > 0;
+    }
+
+    public void goBack(BaseActivity activity) {
+        FragmentManager fm = activity.getFragmentManager();
+        fm.popBackStack();
     }
 
 }

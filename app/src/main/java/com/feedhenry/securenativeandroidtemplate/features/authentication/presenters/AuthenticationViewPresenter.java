@@ -1,5 +1,6 @@
 package com.feedhenry.securenativeandroidtemplate.features.authentication.presenters;
 
+import com.feedhenry.securenativeandroidtemplate.MainActivity;
 import com.feedhenry.securenativeandroidtemplate.R;
 import com.feedhenry.securenativeandroidtemplate.domain.callbacks.Callback;
 import com.feedhenry.securenativeandroidtemplate.features.authentication.providers.KeycloakAuthenticateProviderImpl;
@@ -18,15 +19,17 @@ import javax.inject.Inject;
 public class AuthenticationViewPresenter extends BasePresenter<AuthenticationView> {
 
     OpenIDAuthenticationProvider authProvider;
+    MainActivity mainActivity;
 
     @Inject
-    public AuthenticationViewPresenter(OpenIDAuthenticationProvider authProviderImpl) {
+    public AuthenticationViewPresenter(OpenIDAuthenticationProvider authProviderImpl, MainActivity mainActivity) {
         this.authProvider = authProviderImpl;
+        this.mainActivity = mainActivity;
     }
 
     public void doLogin() {
         //TODO: if user is already logged in, render the user token right away
-        authProvider.performAuthRequest(new Callback() {
+        authProvider.performAuthRequest(mainActivity, new Callback() {
             @Override
             public void onSuccess(Object response) {
                 TokenResponse token = (TokenResponse) response;

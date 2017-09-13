@@ -12,9 +12,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.feedhenry.securenativeandroidtemplate.domain.Constants;
 import com.feedhenry.securenativeandroidtemplate.domain.models.Note;
 import com.feedhenry.securenativeandroidtemplate.features.authentication.AuthenticationFragment;
-import com.feedhenry.securenativeandroidtemplate.features.authentication.providers.KeycloakAuthenticateProviderImpl;
 import com.feedhenry.securenativeandroidtemplate.features.authentication.providers.OpenIDAuthenticationProvider;
 import com.feedhenry.securenativeandroidtemplate.features.storage.NotesListFragment;
 import com.feedhenry.securenativeandroidtemplate.navigation.Navigator;
@@ -32,8 +32,6 @@ import dagger.android.HasFragmentInjector;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, AuthenticationFragment.AuthenticationListener, NotesListFragment.NoteListListener,  HasFragmentInjector {
-
-    //private KeycloakAuthenticateProviderImpl keycloak = new KeycloakAuthenticateProviderImpl(this);
 
     @Inject
     DispatchingAndroidInjector<Fragment> fragmentInjector;
@@ -62,8 +60,6 @@ public class MainActivity extends BaseActivity
         AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
 
-        ((KeycloakAuthenticateProviderImpl)authProvider).setMainActivity(this);
-
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
@@ -75,7 +71,6 @@ public class MainActivity extends BaseActivity
         navigationView.setNavigationItemSelectedListener(this);
         // load the main menu fragment
         navigator.navigateToHomeView(this);
-        //authProvider.checkIntent(getIntent());
     }
 
     /**
@@ -86,34 +81,12 @@ public class MainActivity extends BaseActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
+        } else if (navigator.canGoBack(this)){
+            navigator.goBack(this);
         } else {
             super.onBackPressed();
         }
     }
-
-//    /**
-//     * Listen for new intents
-//     * @param intent - the incoming intent
-//     */
-//    protected void onNewIntent(Intent intent) {
-//        //super.onNewIntent(intent);
-//        authProvider.checkIntent(intent);
-//    }
-//
-    /**
-     * On start listener to check if there are any incoming intents
-     */
-    @Override
-    protected void onStart() {
-        super.onStart();
-        authProvider.checkIntent(getIntent());
-    }
-//
-//    @Override
-//    protected void onPostResume() {
-//        super.onPostResume();
-//        authProvider.checkIntent(getIntent());
-//    }
 
     /**
      * Handling for Sidebar Navigation
@@ -149,9 +122,10 @@ public class MainActivity extends BaseActivity
     }
 
     @Override
-    public void onNoteClicked(Note note) {
-        Log.i("SecureAndroidApp", "Note selected: " + note.getContent());
-        navigator.navigateToSingleNoteView(this, note);
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == Constants.REQUEST_CODES.AUTH_CODE) {
+            authProvider.onAuthResult(data);
+        }
     }
 
     @Override
@@ -161,17 +135,23 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onAuthError(Exception error) {
-        //navigator.navigateToAuthenticationView(this);
+
     }
 
     @Override
     public void onLogoutSuccess() {
-        //navigator.navigateToHomeView(this);
+
     }
 
     @Override
     public void onLogoutError() {
-        //navigator.navigateToAuthenticationView(this);
+
+    }
+
+    @Override
+    public void onNoteClicked(Note note) {
+        Log.i("SecureAndroidApp", "Note selected: " + note.getContent());
+        navigator.navigateToSingleNoteView(this, note);
     }
 }
 

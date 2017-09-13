@@ -2,13 +2,13 @@ package com.feedhenry.securenativeandroidtemplate.features.authentication;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.feedhenry.securenativeandroidtemplate.R;
+import com.feedhenry.securenativeandroidtemplate.domain.Constants;
 import com.feedhenry.securenativeandroidtemplate.features.authentication.presenters.AuthenticationDetailsPresenter;
 import com.feedhenry.securenativeandroidtemplate.features.authentication.views.AuthenticationDetailsView;
 import com.feedhenry.securenativeandroidtemplate.features.authentication.views.AuthenticationDetailsViewImpl;
@@ -77,10 +77,9 @@ public class AuthenticationDetailsFragment extends BaseFragment<AuthenticationDe
     }
 
     private void showAuthToken(Bundle args) {
-        String accessToken = args.getString("accessToken");
-        String idToken = args.getString("idToken");
-        if (accessToken != null && idToken != null) {
-            authResField.setText("accessToken: " + accessToken + " \n idToken: " + idToken);
+        String token = args.getString(Constants.TOKEN_FIELDS.AUTH_TOKEN);
+        if (token != null ) {
+            authResField.setText(token);
         }
     }
 }

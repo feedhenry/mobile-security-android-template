@@ -1,19 +1,15 @@
 package com.feedhenry.securenativeandroidtemplate.features.authentication.providers;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.feedhenry.securenativeandroidtemplate.MainActivity;
 import com.feedhenry.securenativeandroidtemplate.R;
+import com.feedhenry.securenativeandroidtemplate.domain.Constants;
 import com.feedhenry.securenativeandroidtemplate.domain.callbacks.Callback;
-import com.feedhenry.securenativeandroidtemplate.features.authentication.AuthenticationDetailsFragment;
-import com.feedhenry.securenativeandroidtemplate.features.authentication.AuthenticationFragment;
 
 import net.openid.appauth.AppAuthConfiguration;
 import net.openid.appauth.AuthState;
@@ -65,22 +61,16 @@ public class KeycloakAuthenticateProviderImpl implements OpenIDAuthenticationPro
     @Inject
     Context context;
 
-    Activity mainActivity;
-
     @Inject
     public KeycloakAuthenticateProviderImpl(){
 
-    }
-
-    public void setMainActivity(MainActivity activity) {
-        mainActivity = activity;
     }
 
     /**
      * Create the config for the initial Keycloak auth request to get a temporary token and create an intent to handle the response
      */
     @Override
-    public void performAuthRequest(Callback authCallback) {
+    public void performAuthRequest(Activity fromActivity, Callback authCallback) {
         this.authCallback = authCallback;
         // Setup the config for the AuthorizationService
         serviceConfig =
@@ -98,7 +88,7 @@ public class KeycloakAuthenticateProviderImpl implements OpenIDAuthenticationPro
                 .build();
 
         // create a new auth service with the auth config
-        authService = new AuthorizationService(mainActivity, appAuthConfig);
+        authService = new AuthorizationService(context, appAuthConfig);
 
         AuthorizationRequest.Builder authRequestBuilder =
                 new AuthorizationRequest.Builder(
@@ -109,36 +99,19 @@ public class KeycloakAuthenticateProviderImpl implements OpenIDAuthenticationPro
                         .setScopes(OPEN_ID_SCOPE);
 
         authRequest = authRequestBuilder.build();
-
-        // prepare the intent to handle the auth response from keycloak
-        String action = AUTH_CALLBACK_HANDLER;
-        Intent postAuthorizationIntent = new Intent(mainActivity, MainActivity.class);
-        postAuthorizationIntent.setAction(action);
-        PendingIntent pendingIntent = PendingIntent.getActivity(mainActivity,
-                authRequest.hashCode(),
-                postAuthorizationIntent, 0);
-
         // perform the auth request
-        authService.performAuthorizationRequest(authRequest, pendingIntent);
+        Intent authIntent = authService.getAuthorizationRequestIntent(authRequest);
+        fromActivity.startActivityForResult(authIntent, Constants.REQUEST_CODES.AUTH_CODE);
+
     }
 
     /**
      * Checks if the incoming intent matches the Keycloak Auth response intent
      * @param intent - the intent to check
      */
-    public void checkIntent(@Nullable Intent intent) {
+    public void onAuthResult(@Nullable Intent intent) {
         if (intent != null) {
-            String action = intent.getAction();
-            switch (action) {
-                case AUTH_CALLBACK_HANDLER:
-                    if (!intent.hasExtra(KEYCLOAK_INTENT)) {
-                        handleAuthorizationResponse(intent);
-                        intent.putExtra(KEYCLOAK_INTENT, true);
-                    }
-                    break;
-                default:
-                    // do nothing
-            }
+            handleAuthorizationResponse(intent);
         }
     }
 
@@ -162,7 +135,6 @@ public class KeycloakAuthenticateProviderImpl implements OpenIDAuthenticationPro
      * @param response - the auth response from the intent/server
      */
     public void exchangeTokens(AuthorizationResponse response) {
-        //AuthorizationService service = new AuthorizationService(mainActivity);
         authService.performTokenRequest(response.createTokenExchangeRequest(), new AuthorizationService.TokenResponseCallback() {
             @Override
             public void onTokenRequestCompleted(@Nullable TokenResponse tokenResponse, @Nullable AuthorizationException exception) {
