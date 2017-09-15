@@ -35,6 +35,8 @@ import dagger.android.AndroidInjection;
 
 public class NotesListFragment extends BaseFragment<NoteListPresenter, NoteListAppView> {
 
+    public static final String TAG = "notes";
+
     /**
      * Interface for listening on the note list events
      */

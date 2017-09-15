@@ -14,6 +14,8 @@ import com.feedhenry.securenativeandroidtemplate.features.authentication.views.A
 import com.feedhenry.securenativeandroidtemplate.features.authentication.views.AuthenticationDetailsViewImpl;
 import com.feedhenry.securenativeandroidtemplate.mvp.views.BaseFragment;
 
+import net.openid.appauth.TokenResponse;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -25,6 +27,8 @@ import dagger.android.AndroidInjection;
  */
 public class AuthenticationDetailsFragment extends BaseFragment<AuthenticationDetailsPresenter, AuthenticationDetailsView> {
 
+    public static final String TAG = "authDetails";
+
     @Inject
     AuthenticationDetailsPresenter authDetailsPresenter;
 
@@ -35,6 +39,16 @@ public class AuthenticationDetailsFragment extends BaseFragment<AuthenticationDe
 
     public AuthenticationDetailsFragment() {
         // Required empty public constructor
+    }
+
+    public static AuthenticationDetailsFragment forToken(TokenResponse token) {
+        AuthenticationDetailsFragment detailsFragment = new AuthenticationDetailsFragment();
+        if (token != null) {
+            Bundle args = new Bundle();
+            args.putString(Constants.TOKEN_FIELDS.AUTH_TOKEN, token.jsonSerializeString());
+            detailsFragment.setArguments(args);
+        }
+        return detailsFragment;
     }
 
     @Override

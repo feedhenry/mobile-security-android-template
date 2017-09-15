@@ -1,6 +1,8 @@
 package com.feedhenry.securenativeandroidtemplate.navigation;
 
+import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 
 import com.feedhenry.securenativeandroidtemplate.BaseActivity;
@@ -30,39 +32,37 @@ public class Navigator {
 
     public void navigateToHomeView(BaseActivity activity) {
         HomeFragment homeView = new HomeFragment();
-        loadFragment(activity, homeView);
+        loadFragment(activity, homeView, HomeFragment.TAG);
     }
 
     public void navigateToAuthenticationView(BaseActivity activity) {
         AuthenticationFragment authFragment = new AuthenticationFragment();
-        loadFragment(activity, authFragment);
+        loadFragment(activity, authFragment, AuthenticationFragment.TAG);
     }
 
     public void navigateToAuthenticateDetailsView(BaseActivity activity, TokenResponse token) {
-        AuthenticationDetailsFragment authDetailsView = new AuthenticationDetailsFragment();
-        Bundle args = new Bundle();
-        args.putString(Constants.TOKEN_FIELDS.AUTH_TOKEN, token.jsonSerializeString());
-        authDetailsView.setArguments(args);
-        loadFragment(activity, authDetailsView);
+        AuthenticationDetailsFragment authDetailsView = AuthenticationDetailsFragment.forToken(token);
+        loadFragment(activity, authDetailsView, AuthenticationFragment.TAG);
     }
 
     public void navigateToStorageView(BaseActivity activity) {
         NotesListFragment notesListView = new NotesListFragment();
-        loadFragment(activity, notesListView);
+        loadFragment(activity, notesListView, NotesListFragment.TAG);
     }
 
     public void navigateToSingleNoteView(BaseActivity activity, Note note) {
         NotesDetailFragment noteDetails = NotesDetailFragment.forNote(note);
-        loadFragment(activity, noteDetails);
+        loadFragment(activity, noteDetails, NotesDetailFragment.TAG);
     }
 
-    public void loadFragment(BaseActivity activity, BaseFragment fragment) {
+    public void loadFragment(BaseActivity activity, BaseFragment fragment, String fragmentTag) {
         activity.setInformationTextResourceId(fragment.getHelpMessageResourceId());
-        // create a FragmentTransaction to begin the transaction and replace the Fragment
         FragmentManager fm = activity.getFragmentManager();
-        fm.beginTransaction()
+        FragmentTransaction transaction = fm.beginTransaction();
+        // create a FragmentTransaction to begin the transaction and replace the Fragment
+        transaction
                 .addToBackStack(null)
-                .replace(R.id.frameLayout, fragment)
+                .replace(R.id.frameLayout, fragment, fragmentTag)
                 .commit();
     }
 

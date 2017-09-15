@@ -33,6 +33,8 @@ import dagger.android.AndroidInjection;
 
 public class NotesDetailFragment extends BaseFragment<NoteDetailPresenter, NoteDetailAppView> {
 
+    public static final String TAG = "noteDetails";
+
     public interface SaveNoteListener {
         void onNoteSaved(Note note);
     }
@@ -97,6 +99,8 @@ public class NotesDetailFragment extends BaseFragment<NoteDetailPresenter, NoteD
         Bundle args = this.getArguments();
         if (args != null) {
             setNoteFields(args);
+        } else {
+            clearNoteFields();
         }
     }
 
@@ -182,4 +186,8 @@ public class NotesDetailFragment extends BaseFragment<NoteDetailPresenter, NoteD
         }
     }
 
+    private void clearNoteFields() {
+        titleField.getText().clear();
+        contentField.getText().clear();
+    }
 }
