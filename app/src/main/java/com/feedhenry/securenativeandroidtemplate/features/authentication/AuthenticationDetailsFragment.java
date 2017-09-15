@@ -44,7 +44,9 @@ public class AuthenticationDetailsFragment extends BaseFragment<AuthenticationDe
         view = inflater.inflate(R.layout.fragment_authentication_details, container, false);
         ButterKnife.bind(this, view);
         Bundle args = getArguments();
-        showAuthToken(args);
+        if (args != null) {
+            showAuthToken(args);
+        }
         return view;
     }
 

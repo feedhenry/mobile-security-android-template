@@ -1,9 +1,7 @@
 package com.feedhenry.securenativeandroidtemplate.navigation;
 
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.feedhenry.securenativeandroidtemplate.BaseActivity;
 import com.feedhenry.securenativeandroidtemplate.domain.Constants;
@@ -12,6 +10,7 @@ import com.feedhenry.securenativeandroidtemplate.features.authentication.Authent
 import com.feedhenry.securenativeandroidtemplate.features.home.HomeFragment;
 import com.feedhenry.securenativeandroidtemplate.R;
 import com.feedhenry.securenativeandroidtemplate.domain.models.Note;
+import com.feedhenry.securenativeandroidtemplate.features.storage.NotesDetailFragment;
 import com.feedhenry.securenativeandroidtemplate.features.storage.NotesListFragment;
 import com.feedhenry.securenativeandroidtemplate.mvp.views.BaseFragment;
 
@@ -53,7 +52,8 @@ public class Navigator {
     }
 
     public void navigateToSingleNoteView(BaseActivity activity, Note note) {
-        //TODO: implement me!
+        NotesDetailFragment noteDetails = NotesDetailFragment.forNote(note);
+        loadFragment(activity, noteDetails);
     }
 
     public void loadFragment(BaseActivity activity, BaseFragment fragment) {

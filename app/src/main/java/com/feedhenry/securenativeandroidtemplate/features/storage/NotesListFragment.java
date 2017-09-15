@@ -25,6 +25,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import dagger.android.AndroidInjection;
 
@@ -39,6 +40,7 @@ public class NotesListFragment extends BaseFragment<NoteListPresenter, NoteListA
      */
     public interface NoteListListener {
         void onNoteClicked(final Note note);
+        void onCreateNote();
     }
 
     @Inject NoteListPresenter notesListPresenter;
@@ -125,6 +127,13 @@ public class NotesListFragment extends BaseFragment<NoteListPresenter, NoteListA
             }
 
             @Override
+            public void createNote() {
+                if (noteListListener != null) {
+                    noteListListener.onCreateNote();
+                }
+            }
+
+            @Override
             public void showLoading() {
                 rlProgress.setVisibility(View.VISIBLE);
             }
@@ -145,5 +154,10 @@ public class NotesListFragment extends BaseFragment<NoteListPresenter, NoteListA
         this.notesAdapter.setOnItemClickListener(onItemClickListener);
         this.rvNotes.setLayoutManager(new LinearLayoutManager(getActivity()));
         this.rvNotes.setAdapter(notesAdapter);
+    }
+
+    @OnClick(R.id.add_note_btn)
+    public void createNewNote() {
+        this.notesListPresenter.onCreateNote();
     }
 }
