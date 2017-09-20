@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 
@@ -50,6 +51,9 @@ public class NotesDetailFragment extends BaseFragment<NoteDetailPresenter, NoteD
 
     @BindView(R.id.rl_progress)
     RelativeLayout progressBar;
+
+    @BindView(R.id.delete_note_btn)
+    Button deleteButton;
 
     private View noteCreateView;
     private Unbinder unbinder;
@@ -145,6 +149,7 @@ public class NotesDetailFragment extends BaseFragment<NoteDetailPresenter, NoteD
                 existingNote = note;
                 titleField.setText(note.getTitle());
                 contentField.setText(note.getContent());
+                deleteButton.setVisibility(View.VISIBLE);
             }
         };
     }
@@ -169,6 +174,13 @@ public class NotesDetailFragment extends BaseFragment<NoteDetailPresenter, NoteD
             noteDetailPresenter.updateNote(existingNote);
         } else {
             noteDetailPresenter.createNote(noteTitle, noteContent);
+        }
+    }
+
+    @OnClick(R.id.delete_note_btn)
+    public void deleteNote() {
+        if (existingNote != null) {
+            noteDetailPresenter.deleteNote(existingNote);
         }
     }
 

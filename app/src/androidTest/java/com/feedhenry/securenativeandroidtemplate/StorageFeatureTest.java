@@ -49,11 +49,6 @@ public class StorageFeatureTest {
     @Inject
     NoteRepository noteRepository;
 
-    @Inject
-    NoteDataStoreFactory dataStoreFactory;
-
-    NoteDataStore dataStore;
-
     private static final String TEST_TITLE = "testTitle";
     private static final String TEST_CONTENT = "testContent";
 
@@ -63,7 +58,6 @@ public class StorageFeatureTest {
     public void setUp() {
         SecureTestApplication application = (SecureTestApplication) InstrumentationRegistry.getTargetContext().getApplicationContext();
         application.getComponent().inject(this);
-        dataStore = dataStoreFactory.getDataStore();
     }
 
     @Test
