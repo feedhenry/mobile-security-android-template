@@ -9,7 +9,8 @@
     <string name="popup_title">Information</string>
     <string name="popup_home_fragment">Welcome. Clicking this button on each view inside the App will give you more information about the different security measures implemented.</string>
     <string name="popup_authentication_fragment">The Authentication and Access control is provided by the Keycloak Identity Manager.</string>
-    <string name="popup_storage_fragment">The notes are encrypted automatically when saved locally.</string>
+    <string name="popup_storage_fragment">The notes are encrypted automatically when saved locally. Each note is saved in its own file, and encrypted with its own secret key. The secret keys are persisted in the Android Keystore.
+        \nTo encrypt the files, AES is used. The key size is 128 bit, with GCM mode to ensure the integrity of the data.</string>
 
     <!-- Strings related to Navigation -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
