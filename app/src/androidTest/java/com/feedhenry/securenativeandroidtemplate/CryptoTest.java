@@ -30,39 +30,39 @@ import static junit.framework.Assert.assertEquals;
 @RunWith(AndroidJUnit4.class)
 public class CryptoTest {
 
-    public static final String KEY_ALIAS = "AESGCM_TEST_KEY";
-
-    @Inject Context context;
-    @Inject AesGcmCrypto aesGcmCrypto;
-
-    @Before
-    public void setUp() {
-        SecureTestApplication application = (SecureTestApplication) InstrumentationRegistry.getTargetContext().getApplicationContext();
-        application.getComponent().inject(this);
-    }
-
-    @Test
-    public void testEncryptDecrypt() throws GeneralSecurityException, IOException {
-        String textToTest = "this is a test text";
-        String encrypted = aesGcmCrypto.encryptString(KEY_ALIAS, textToTest, "utf-8");
-        String decrypted = aesGcmCrypto.decryptString(KEY_ALIAS, encrypted, "utf-8");
-        assertEquals(textToTest, decrypted);
-    }
-
-    @Test
-    public void testEncryptDecryptStream() throws IOException, GeneralSecurityException {
-        String textToTest = "this is a test text";
-        FileOutputStream out = context.getApplicationContext().openFileOutput("test.txt", Context.MODE_PRIVATE);
-
-        OutputStream encryptedStream = aesGcmCrypto.encryptStream(KEY_ALIAS, out);
-        encryptedStream.write(textToTest.getBytes());
-        encryptedStream.flush();
-        encryptedStream.close();
-
-        FileInputStream in = context.getApplicationContext().openFileInput("test.txt");
-        InputStream decryptedStream = aesGcmCrypto.decryptStream(KEY_ALIAS, in);
-
-        String decrypted = StreamUtils.readStream(decryptedStream);
-        assertEquals(textToTest, decrypted);
-    }
+//    public static final String KEY_ALIAS = "AESGCM_TEST_KEY";
+//
+//    @Inject Context context;
+//    @Inject AesGcmCrypto aesGcmCrypto;
+//
+//    @Before
+//    public void setUp() {
+//        SecureTestApplication application = (SecureTestApplication) InstrumentationRegistry.getTargetContext().getApplicationContext();
+//        application.getComponent().inject(this);
+//    }
+//
+//    @Test
+//    public void testEncryptDecrypt() throws GeneralSecurityException, IOException {
+//        String textToTest = "this is a test text";
+//        String encrypted = aesGcmCrypto.encryptString(KEY_ALIAS, textToTest, "utf-8");
+//        String decrypted = aesGcmCrypto.decryptString(KEY_ALIAS, encrypted, "utf-8");
+//        assertEquals(textToTest, decrypted);
+//    }
+//
+//    @Test
+//    public void testEncryptDecryptStream() throws IOException, GeneralSecurityException {
+//        String textToTest = "this is a test text";
+//        FileOutputStream out = context.getApplicationContext().openFileOutput("test.txt", Context.MODE_PRIVATE);
+//
+//        OutputStream encryptedStream = aesGcmCrypto.encryptStream(KEY_ALIAS, out);
+//        encryptedStream.write(textToTest.getBytes());
+//        encryptedStream.flush();
+//        encryptedStream.close();
+//
+//        FileInputStream in = context.getApplicationContext().openFileInput("test.txt");
+//        InputStream decryptedStream = aesGcmCrypto.decryptStream(KEY_ALIAS, in);
+//
+//        String decrypted = StreamUtils.readStream(decryptedStream);
+//        assertEquals(textToTest, decrypted);
+//    }
 }

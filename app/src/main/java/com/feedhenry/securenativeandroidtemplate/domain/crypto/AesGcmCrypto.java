@@ -34,9 +34,15 @@ public class AesGcmCrypto {
     private static final String ALG_AES_GCM_NOPADDING = "AES/GCM/NoPadding";
     private static final int BASE64_FLAG = Base64.NO_WRAP;
 
+    private String keyStoreType;
+
+    public AesGcmCrypto(String keyStoreType) {
+        this.keyStoreType = keyStoreType;
+    }
+
     @Inject
     public AesGcmCrypto() {
-
+        this.keyStoreType = ANDROID_KEY_STORE;
     }
 
     /**
@@ -47,9 +53,9 @@ public class AesGcmCrypto {
      */
     @TargetApi(Build.VERSION_CODES.M)
     public void generateAESKey(String keyAlias) throws GeneralSecurityException, IOException {
-        KeyStore keyStore = KeyStore.getInstance(ANDROID_KEY_STORE);
+        KeyStore keyStore = KeyStore.getInstance(this.keyStoreType);
         keyStore.load(null);
-        KeyGenerator keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, ANDROID_KEY_STORE);
+        KeyGenerator keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, this.keyStoreType);
         //TODO: further control if user authentication is required for accessing the keys
         KeyGenParameterSpec keyGenerationParameters = new KeyGenParameterSpec.Builder(keyAlias, KeyProperties.PURPOSE_ENCRYPT | KeyProperties.PURPOSE_DECRYPT)
                 .setKeySize(AES_KEYSIZE_128)
@@ -69,7 +75,7 @@ public class AesGcmCrypto {
      * @throws IOException
      */
     private SecretKey loadOrGenerateSecretKey(String keyAlias, boolean doGenerate) throws GeneralSecurityException, IOException {
-        KeyStore keyStore = KeyStore.getInstance(ANDROID_KEY_STORE);
+        KeyStore keyStore = KeyStore.getInstance(this.keyStoreType);
         keyStore.load(null);
         if (!keyStore.containsAlias(keyAlias)) {
             if (doGenerate) {
@@ -190,7 +196,7 @@ public class AesGcmCrypto {
      * @throws IOException
      */
     public void deleteSecretKey(String keyAlias) throws GeneralSecurityException, IOException {
-        KeyStore keyStore = KeyStore.getInstance(ANDROID_KEY_STORE);
+        KeyStore keyStore = KeyStore.getInstance(this.keyStoreType);
         keyStore.load(null);
         keyStore.deleteEntry(keyAlias);
     }

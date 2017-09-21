@@ -72,7 +72,7 @@ public class StorageFeatureTest {
         //details view should be appear
         onView(withId(R.id.note_details_view)).check(matches(isDisplayed()));
         //enter the title & content
-        onView(withId(R.id.note_title_field)).perform(typeText(TEST_TITLE));
+        onView(withId(R.id.note_title_field)).perform(typeText(TEST_TITLE), closeSoftKeyboard());
         onView(withId(R.id.note_content_field)).perform(typeText(TEST_CONTENT), closeSoftKeyboard());
         //save
         onView(withId(R.id.save_note_btn)).perform(click());
