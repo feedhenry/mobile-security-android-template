@@ -64,6 +64,7 @@ public class KeycloakAuthenticateProviderImpl implements OpenIDAuthenticationPro
         this.context = context;
     }
 
+    // tag::performAuthRequest[]
     /**
      * Create the config for the initial Keycloak auth request to get a temporary token and create an intent to handle the response
      */
@@ -102,6 +103,7 @@ public class KeycloakAuthenticateProviderImpl implements OpenIDAuthenticationPro
         fromActivity.startActivityForResult(authIntent, Constants.REQUEST_CODES.AUTH_CODE);
 
     }
+    // end::performAuthRequest[]
 
     /**
      * Checks if the incoming intent matches the Keycloak Auth response intent
