@@ -24,6 +24,11 @@ android {
         }
     }
     buildTypes {
+        local {
+            initWith debug
+            debuggable true
+        }
+
         release {
             versionNameSuffix System.getenv("CIRCLE_BUILD_NUM")
             signingConfig signingConfigs.release
