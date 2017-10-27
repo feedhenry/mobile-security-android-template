@@ -58,11 +58,6 @@ public class SecureApplicationModule {
     }
 
     @Provides @Singleton
-    AuthenticationConfiguration provideAuthenticationConfiguration(AuthenticationConfiguration authConfiguration) {
-        return authConfiguration;
-    }
-
-    @Provides @Singleton
     AesCrypto provideAesCrypto(SecureKeyStore keyStore) {
         return new AesCrypto(keyStore);
     }
