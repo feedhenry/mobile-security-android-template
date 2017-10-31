@@ -62,7 +62,7 @@
     <string name="access_denied">Access Denied</string>
 
     <!-- Strings related to Storage -->
-    <string name="fragment_title_storage">Storage</string>
+    <string name="fragment_title_storage">Secure Storage</string>
     <string name="fragment_note_title">Title</string>
     <string name="fragment_note_content">Content</string>
     <string name="action_save">Save</string>
@@ -80,6 +80,7 @@
     <!-- Strings related to Network -->
     <string name="fragment_title_network">Network</string>
     <string name="network_request_failed">Network Request Failed</string>
+    <string name="upload_notes">Upload Notes</string>
 
     <!-- Strings related to Device -->
     <string name="fragment_title_device">Device</string>

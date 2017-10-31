@@ -21,7 +21,7 @@ import com.feedhenry.securenativeandroidtemplate.features.authentication.Authent
 import com.feedhenry.securenativeandroidtemplate.features.authentication.providers.OpenIDAuthenticationProvider;
 import com.feedhenry.securenativeandroidtemplate.features.storage.NotesDetailFragment;
 import com.feedhenry.securenativeandroidtemplate.features.storage.NotesListFragment;
-import com.feedhenry.securenativeandroidtemplate.mvp.components.AuthHelper;
+import com.feedhenry.securenativeandroidtemplate.domain.services.AuthStateService;
 import com.feedhenry.securenativeandroidtemplate.mvp.components.HttpHelper;
 import com.feedhenry.securenativeandroidtemplate.navigation.Navigator;
 
@@ -80,9 +80,6 @@ public class MainActivity extends BaseActivity
 
         // initialise the httphelper
         HttpHelper.init();
-
-        // initialise the authhelper with a context
-        AuthHelper.init(context);
 
         // load the main menu fragment
         navigator.navigateToHomeView(this);
