@@ -8,4 +8,15 @@ import com.feedhenry.securenativeandroidtemplate.mvp.views.AppView;
 
 public interface UploadNotesView extends AppView {
 
+    public void renderNotesMessage(long numberOfNotes);
+
+    public void renderPermissionMessage(boolean hasPerm, String requiredRole);
+
+    public void showProgressBar();
+
+    public void updateProgress(long completed, long total);
+
+    public void updateProgressDesc(String progressDesc);
+
+    public void hideProgressBar();
 }

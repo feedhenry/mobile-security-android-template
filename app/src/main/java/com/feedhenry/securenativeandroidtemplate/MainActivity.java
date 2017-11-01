@@ -130,7 +130,10 @@ public class MainActivity extends BaseActivity
         if (id == R.id.nav_device) {
             navigator.navigateToDeviceView(this);
         }
-
+        // Visit the Network Screen
+        if (id == R.id.nav_network) {
+            navigator.navigateToNetworkView(this);
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

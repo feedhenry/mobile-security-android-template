@@ -11,9 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.feedhenry.securenativeandroidtemplate.R;
+import com.feedhenry.securenativeandroidtemplate.domain.configurations.AppConfiguration;
 import com.feedhenry.securenativeandroidtemplate.domain.models.Identity;
 import com.feedhenry.securenativeandroidtemplate.features.authentication.presenters.AuthenticationViewPresenter;
-import com.feedhenry.securenativeandroidtemplate.features.authentication.providers.AuthenticationConfiguration;
 import com.feedhenry.securenativeandroidtemplate.features.authentication.views.AuthenticationView;
 import com.feedhenry.securenativeandroidtemplate.features.authentication.views.AuthenticationViewImpl;
 import com.feedhenry.securenativeandroidtemplate.domain.services.AuthStateService;
@@ -49,7 +49,7 @@ public class AuthenticationFragment extends BaseFragment<AuthenticationViewPrese
     Navigator navigator;
 
     @Inject
-    AuthenticationConfiguration authenticationConfiguration;
+    AppConfiguration appConfiguration;
 
     @Inject
     AuthenticationViewPresenter authenticationViewPresenter;
@@ -156,7 +156,7 @@ public class AuthenticationFragment extends BaseFragment<AuthenticationViewPrese
         // disable allowing a user to login until the channel is secure
         keycloakLogin.setEnabled(false);
 
-        String hostURL = authenticationConfiguration.getHostUrl();
+        String hostURL = appConfiguration.getAuthConfiguration().getHostUrl();
         boolean sendAccessToken = false;
 
         authStateService.createRequest(hostURL, sendAccessToken, new okhttp3.Callback() {

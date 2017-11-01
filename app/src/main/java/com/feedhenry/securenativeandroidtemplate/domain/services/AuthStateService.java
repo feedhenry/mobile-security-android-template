@@ -81,6 +81,7 @@ public class AuthStateService {
     public void writeAuthState(@Nullable AuthState state) {
         this.authState = state;
         if (this.authState == null) {
+            this.authState = new AuthState();
             if (!mPrefs.edit().remove(KEY_STATE).commit()) {
                 throw new IllegalStateException("Failed to write state to shared prefs");
             }
@@ -155,8 +156,8 @@ public class AuthStateService {
             if (userRoles.contains(role)) {
                 hasRole = true;
             }
-        } catch (JSONException e) {
-            Log.e("", "Error - JSON Exception", e);
+        } catch (Exception e) {
+            Log.e("", "Error - Exception", e);
         }
         return hasRole;
     }

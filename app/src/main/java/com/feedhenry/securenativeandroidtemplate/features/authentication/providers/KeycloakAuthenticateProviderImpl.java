@@ -11,6 +11,8 @@ import android.util.Log;
 import com.feedhenry.securenativeandroidtemplate.R;
 import com.feedhenry.securenativeandroidtemplate.domain.Constants;
 import com.feedhenry.securenativeandroidtemplate.domain.callbacks.Callback;
+import com.feedhenry.securenativeandroidtemplate.domain.configurations.AppConfiguration;
+import com.feedhenry.securenativeandroidtemplate.domain.configurations.AuthenticationConfiguration;
 import com.feedhenry.securenativeandroidtemplate.domain.models.Identity;
 import com.feedhenry.securenativeandroidtemplate.domain.services.AuthStateService;
 import net.openid.appauth.AppAuthConfiguration;
@@ -61,9 +63,9 @@ public class KeycloakAuthenticateProviderImpl implements OpenIDAuthenticationPro
     Context context;
 
     @Inject
-    public KeycloakAuthenticateProviderImpl(@NonNull Context context, AuthenticationConfiguration authenticationConfiguration, AuthStateService authStateService) {
+    public KeycloakAuthenticateProviderImpl(@NonNull Context context, AppConfiguration appConfiguration, AuthStateService authStateService) {
         this.context = context;
-        this.authenticationConfiguration = authenticationConfiguration;
+        this.authenticationConfiguration = appConfiguration.getAuthConfiguration();
         this.authStateService = authStateService;
     }
 

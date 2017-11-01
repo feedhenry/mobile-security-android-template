@@ -18,7 +18,6 @@ import com.feedhenry.securenativeandroidtemplate.domain.store.NoteDataStore;
 import com.feedhenry.securenativeandroidtemplate.domain.store.NoteDataStoreFactory;
 import com.feedhenry.securenativeandroidtemplate.domain.store.SecureFileNoteStore;
 import com.feedhenry.securenativeandroidtemplate.domain.store.sqlite.SqliteNoteStore;
-import com.feedhenry.securenativeandroidtemplate.features.authentication.providers.AuthenticationConfiguration;
 import com.feedhenry.securenativeandroidtemplate.features.authentication.providers.KeycloakAuthenticateProviderImpl;
 import com.feedhenry.securenativeandroidtemplate.features.authentication.providers.OpenIDAuthenticationProvider;
 
