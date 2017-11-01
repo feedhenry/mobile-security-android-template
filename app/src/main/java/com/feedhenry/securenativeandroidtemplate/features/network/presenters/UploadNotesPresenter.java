@@ -83,7 +83,7 @@ public class UploadNotesPresenter extends BasePresenter<UploadNotesView> {
     private class ClientStatusCheckerTask extends AsyncTask<Void, Void, ClientStatus> {
 
         private Exception error;
-        String requiredRole = Constants.ACCESS_CONTROL_ROLES.ROLE_MOBILE_USER;
+        String requiredRole = Constants.ACCESS_CONTROL_ROLES.ROLE_API_ACCESS;
 
         @Override
         protected void onPreExecute() {
