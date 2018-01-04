@@ -64,12 +64,6 @@ public class NetworkFragment extends BaseFragment<UploadNotesPresenter, UploadNo
     }
 
     @Override
-    public void onAttach(Context context) {
-        AndroidInjection.inject(this);
-        super.onAttach(context);
-    }
-
-    @Override
     public void onDetach() {
         super.onDetach();
         this.uploadNotesPresenter = null;

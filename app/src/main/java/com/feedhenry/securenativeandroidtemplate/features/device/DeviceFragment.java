@@ -110,12 +110,6 @@ public class DeviceFragment extends BaseFragment<DevicePresenter, DeviceView> {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        AndroidInjection.inject(this);
-        super.onAttach(activity);
-    }
-
-    @Override
     public void onDetach() {
         super.onDetach();
         this.devicePresenter = null;

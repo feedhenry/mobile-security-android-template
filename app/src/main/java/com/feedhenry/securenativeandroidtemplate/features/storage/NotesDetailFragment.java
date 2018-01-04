@@ -97,7 +97,6 @@ public class NotesDetailFragment extends BaseFragment<NoteDetailPresenter, NoteD
 
     @Override
     public void onAttach(Activity activity) {
-        AndroidInjection.inject(this);
         super.onAttach(activity);
         if (activity instanceof SaveNoteListener) {
             noteCreationListener = (SaveNoteListener) activity;

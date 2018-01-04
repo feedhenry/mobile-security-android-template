@@ -17,7 +17,7 @@ import dagger.android.ContributesAndroidInjector;
  */
 
 @Module
-public abstract class FragmentModules {
+abstract class FragmentsModule {
 
     @ContributesAndroidInjector
     abstract NotesListFragment contributeNotesListFragmentInjector();

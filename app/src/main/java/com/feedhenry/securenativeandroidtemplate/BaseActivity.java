@@ -1,20 +1,18 @@
 package com.feedhenry.securenativeandroidtemplate;
 
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import butterknife.OnClick;
+import dagger.android.support.DaggerAppCompatActivity;
 
 /**
  * Created by weili on 12/09/2017.
  */
 
-public class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends DaggerAppCompatActivity {
     private String infoText;
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

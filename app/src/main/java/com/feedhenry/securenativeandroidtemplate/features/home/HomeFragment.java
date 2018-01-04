@@ -46,12 +46,6 @@ public class HomeFragment extends BaseFragment<HomeViewPresenter, HomeView> {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        AndroidInjection.inject(this);
-        super.onAttach(activity);
-    }
-
-    @Override
     public void onDetach() {
         super.onDetach();
         this.homeViewPresenter = null;

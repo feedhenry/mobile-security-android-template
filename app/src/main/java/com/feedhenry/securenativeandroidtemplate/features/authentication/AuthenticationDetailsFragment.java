@@ -93,7 +93,6 @@ public class AuthenticationDetailsFragment extends BaseFragment<AuthenticationDe
 
     @Override
     public void onAttach(Activity activity) {
-        AndroidInjection.inject(this);
         super.onAttach(activity);
         if (activity instanceof AuthenticationDetailsListener) {
             authenticationDetailsListener = (AuthenticationDetailsListener) activity;

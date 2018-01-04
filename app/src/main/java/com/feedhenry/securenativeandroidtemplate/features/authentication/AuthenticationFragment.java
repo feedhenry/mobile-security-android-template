@@ -79,7 +79,6 @@ public class AuthenticationFragment extends BaseFragment<AuthenticationViewPrese
 
     @Override
     public void onAttach(Activity activity) {
-        AndroidInjection.inject(this);
         super.onAttach(activity);
         if (activity instanceof AuthenticationListener) {
             authenticationListener = (AuthenticationListener) activity;

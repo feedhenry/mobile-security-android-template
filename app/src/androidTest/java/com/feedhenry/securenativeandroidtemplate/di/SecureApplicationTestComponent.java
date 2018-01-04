@@ -21,7 +21,7 @@ import dagger.android.AndroidInjectionModule;
  * Define the DI graph for Dagger for the tests. You will need to add new methods into this interface if new tests are added and then need DI.
  */
 @Singleton
-@Component(modules = {AndroidInjectionModule.class, SecureApplicationTestModule.class, MainActivityModule.class})
+@Component(modules = {AndroidInjectionModule.class, SecureApplicationTestModule.class, ActivitiesModule.class})
 public interface SecureApplicationTestComponent {
     @Component.Builder
     interface Builder {

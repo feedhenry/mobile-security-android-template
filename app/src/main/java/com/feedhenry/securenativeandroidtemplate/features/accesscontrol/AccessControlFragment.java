@@ -71,12 +71,6 @@ public class AccessControlFragment extends BaseFragment<AccessControlViewPresent
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        AndroidInjection.inject(this);
-        super.onAttach(activity);
-    }
-
-    @Override
     public void onDetach() {
         super.onDetach();
         this.accessControlViewPresenter = null;

@@ -78,7 +78,6 @@ public class NotesListFragment extends BaseFragment<NoteListPresenter, NoteListA
 
     @Override
     public void onAttach(Activity activity) {
-        AndroidInjection.inject(this);
         super.onAttach(activity);
         if (activity instanceof NoteListListener) {
             this.noteListListener = (NoteListListener) activity;

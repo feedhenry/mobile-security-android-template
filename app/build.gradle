@@ -46,6 +46,7 @@ android {
 
 ext {
     android_support_library_version = "26.1.0"
+    dagger_version = "2.12"
 }
 
 dependencies {
@@ -64,10 +65,11 @@ dependencies {
     compile "com.jakewharton:butterknife:8.8.1"
     annotationProcessor "com.jakewharton:butterknife-compiler:8.8.1"
 
-    compile "com.google.dagger:dagger:2.11"
-    compile "com.google.dagger:dagger-android:2.11"
-    annotationProcessor "com.google.dagger:dagger-compiler:2.11"
-    annotationProcessor "com.google.dagger:dagger-android-processor:2.11"
+    compile "com.google.dagger:dagger:$dagger_version"
+    compile "com.google.dagger:dagger-android:$dagger_version"
+    compile "com.google.dagger:dagger-android-support:$dagger_version"
+    annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
+    annotationProcessor "com.google.dagger:dagger-android-processor:$dagger_version"
 
     compile "net.zetetic:android-database-sqlcipher:3.5.7@aar"
 
