@@ -25,7 +25,6 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import dagger.android.AndroidInjection;
 
 /**
  * A fragment for showing the user details view after they have logged in.
@@ -93,7 +92,6 @@ public class AuthenticationDetailsFragment extends BaseFragment<AuthenticationDe
 
     @Override
     public void onAttach(Activity activity) {
-        AndroidInjection.inject(this);
         super.onAttach(activity);
         if (activity instanceof AuthenticationDetailsListener) {
             authenticationDetailsListener = (AuthenticationDetailsListener) activity;

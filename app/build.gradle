@@ -1,16 +1,16 @@
-apply plugin: 'com.android.application'
+apply plugin: "com.android.application"
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '25.0.3'
+    compileSdkVersion 26
+    buildToolsVersion "26.0.3"
     defaultConfig {
         applicationId "com.feedhenry.securenativeandroidtemplate"
         minSdkVersion 19
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "com.feedhenry.securenativeandroidtemplate.MockTestRunner"
-        manifestPlaceholders = ['appAuthRedirectScheme': 'com.feedhenry.securenativeandroidtemplate']
+        manifestPlaceholders = ["appAuthRedirectScheme": "com.feedhenry.securenativeandroidtemplate"]
         vectorDrawables {
             useSupportLibrary true
         }
@@ -33,56 +33,62 @@ android {
             versionNameSuffix System.getenv("CIRCLE_BUILD_NUM")
             signingConfig signingConfigs.release
             minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
     configurations.all {
-        resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'
+        resolutionStrategy.force "com.google.code.findbugs:jsr305:1.3.9"
     }
     testOptions {
         unitTests.returnDefaultValues = true
     }
 }
 
+ext {
+    android_support_library_version = "26.1.0"
+    dagger_version = "2.12"
+}
+
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:design:25.3.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.android.support:support-v4:25.3.1'
-    compile 'net.openid:appauth:0.7.0'
-    compile 'com.android.support:cardview-v7:25.3.1'
-    compile 'com.squareup.okhttp3:okhttp:3.9.0'
-    compile 'com.datatheorem.android.trustkit:trustkit:1.0.1@aar'
-    compile 'com.scottyab:rootbeer-lib:0.0.6'
-    compile group: 'com.google.code.gson', name: 'gson', version: '2.7'
+    compile fileTree(dir: "libs", include: ["*.jar"])
+    compile "com.android.support:appcompat-v7:$android_support_library_version"
+    compile "com.android.support:design:$android_support_library_version"
+    compile "com.android.support:support-v4:$android_support_library_version"
+    compile "com.android.support:cardview-v7:$android_support_library_version"
+    compile "com.android.support.constraint:constraint-layout:1.0.2"
+    compile "net.openid:appauth:0.7.0"
+    compile "com.squareup.okhttp3:okhttp:3.9.0"
+    compile "com.datatheorem.android.trustkit:trustkit:1.0.1@aar"
+    compile "com.scottyab:rootbeer-lib:0.0.6"
+    compile group: "com.google.code.gson", name: "gson", version: "2.7"
 
-    compile 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    compile "com.jakewharton:butterknife:8.8.1"
+    annotationProcessor "com.jakewharton:butterknife-compiler:8.8.1"
 
-    compile 'com.google.dagger:dagger:2.11'
-    compile 'com.google.dagger:dagger-android:2.11'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.11'
-    annotationProcessor 'com.google.dagger:dagger-android-processor:2.11'
+    compile "com.google.dagger:dagger:$dagger_version"
+    compile "com.google.dagger:dagger-android:$dagger_version"
+    compile "com.google.dagger:dagger-android-support:$dagger_version"
+    annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
+    annotationProcessor "com.google.dagger:dagger-android-processor:$dagger_version"
 
-    compile 'net.zetetic:android-database-sqlcipher:3.5.7@aar'
+    compile "net.zetetic:android-database-sqlcipher:3.5.7@aar"
 
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:2.10.0'
-    testCompile 'org.json:json:20160810'
+    testCompile "junit:junit:4.12"
+    testCompile "org.mockito:mockito-core:2.10.0"
+    testCompile "org.json:json:20160810"
     testCompile "org.robolectric:robolectric:3.4.2"
 
-    androidTestCompile 'org.mockito:mockito-android:2.10.0'
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
+    androidTestCompile "org.mockito:mockito-android:2.10.0"
+    androidTestCompile("com.android.support.test.espresso:espresso-core:2.2.2", {
+        exclude group: "com.android.support", module: "support-annotations"
     })
-    androidTestCompile('com.android.support.test.espresso:espresso-contrib:2.2.2') {
-        exclude group: 'com.android.support', module: 'support-annotations'
-        exclude group: 'com.android.support', module: 'appcompat-v7'
-        exclude group: 'com.android.support', module: 'support-v4'
-        exclude group: 'com.android.support', module: 'design'
-        exclude module: 'recyclerview-v7'
+    androidTestCompile("com.android.support.test.espresso:espresso-contrib:2.2.2") {
+        exclude group: "com.android.support", module: "support-annotations"
+        exclude group: "com.android.support", module: "appcompat-v7"
+        exclude group: "com.android.support", module: "support-v4"
+        exclude group: "com.android.support", module: "design"
+        exclude module: "recyclerview-v7"
     }
-    androidTestAnnotationProcessor 'com.google.dagger:dagger-compiler:2.11'
-    androidTestAnnotationProcessor 'com.google.dagger:dagger-android-processor:2.11'
+    androidTestAnnotationProcessor "com.google.dagger:dagger-compiler:2.11"
+    androidTestAnnotationProcessor "com.google.dagger:dagger-android-processor:2.11"
 }

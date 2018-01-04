@@ -13,10 +13,10 @@ import android.widget.TextView;
 import com.feedhenry.securenativeandroidtemplate.R;
 import com.feedhenry.securenativeandroidtemplate.domain.configurations.AppConfiguration;
 import com.feedhenry.securenativeandroidtemplate.domain.models.Identity;
+import com.feedhenry.securenativeandroidtemplate.domain.services.AuthStateService;
 import com.feedhenry.securenativeandroidtemplate.features.authentication.presenters.AuthenticationViewPresenter;
 import com.feedhenry.securenativeandroidtemplate.features.authentication.views.AuthenticationView;
 import com.feedhenry.securenativeandroidtemplate.features.authentication.views.AuthenticationViewImpl;
-import com.feedhenry.securenativeandroidtemplate.domain.services.AuthStateService;
 import com.feedhenry.securenativeandroidtemplate.mvp.views.BaseFragment;
 import com.feedhenry.securenativeandroidtemplate.navigation.Navigator;
 
@@ -27,7 +27,6 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import dagger.android.AndroidInjection;
 import okhttp3.Call;
 import okhttp3.Response;
 
@@ -79,7 +78,6 @@ public class AuthenticationFragment extends BaseFragment<AuthenticationViewPrese
 
     @Override
     public void onAttach(Activity activity) {
-        AndroidInjection.inject(this);
         super.onAttach(activity);
         if (activity instanceof AuthenticationListener) {
             authenticationListener = (AuthenticationListener) activity;

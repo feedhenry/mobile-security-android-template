@@ -1,17 +1,20 @@
 package com.feedhenry.securenativeandroidtemplate.mvp.views;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.feedhenry.securenativeandroidtemplate.mvp.presenters.Presenter;
 
+import dagger.android.DaggerFragment;
+
 /**
  * Base fragment. It implements the methods to make sure the presenter and view are initialised correctly, make sure the presenter will get notified about various life cycle events of the fragment.
  */
 
-public abstract class BaseFragment<PRESENTER extends Presenter<VIEW>, VIEW extends AppView> extends Fragment {
+public abstract class BaseFragment<PRESENTER extends Presenter<VIEW>, VIEW extends AppView>
+        extends DaggerFragment {
+
     protected PRESENTER presenter;
 
     protected VIEW view;

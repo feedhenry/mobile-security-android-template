@@ -1,11 +1,9 @@
 package com.feedhenry.securenativeandroidtemplate.domain.store;
 
 import android.content.Context;
-import android.support.annotation.IntegerRes;
 import android.support.annotation.NonNull;
 
 import com.feedhenry.securenativeandroidtemplate.domain.models.Note;
-import com.feedhenry.securenativeandroidtemplate.domain.store.sqlite.SqliteNoteStore;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.inject.Singleton;
 
 /**

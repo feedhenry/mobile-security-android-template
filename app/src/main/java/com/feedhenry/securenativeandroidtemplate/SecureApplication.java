@@ -1,33 +1,22 @@
 package com.feedhenry.securenativeandroidtemplate;
 
-import android.app.Activity;
-import android.app.Application;
-
-
 import com.datatheorem.android.trustkit.TrustKit;
 import com.feedhenry.securenativeandroidtemplate.di.DaggerSecureApplicationComponent;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
-import javax.inject.Inject;
-
 import dagger.android.AndroidInjector;
-import dagger.android.DispatchingAndroidInjector;
-import dagger.android.HasActivityInjector;
+import dagger.android.DaggerApplication;
 
 /**
  * The main application class. Needs to setup dependency injection.
  */
 
-public class SecureApplication extends Application implements HasActivityInjector {
-
-    @Inject
-    DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;
+public class SecureApplication extends DaggerApplication {
 
     @Override
     public void onCreate() {
         super.onCreate();
-        initInjector();
 
         // Initialize TrustKit for Certificate Pinning
         TrustKit.initializeWithNetworkSecurityConfiguration(this, R.xml.network_security_config);
@@ -40,16 +29,11 @@ public class SecureApplication extends Application implements HasActivityInjecto
 
     }
 
-    protected void initInjector() {
-        DaggerSecureApplicationComponent
+    @Override
+    protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
+        return DaggerSecureApplicationComponent
                 .builder()
-                .application(this)
-                .build()
-                .inject(this);
+                .create(this);
     }
 
-    @Override
-    public AndroidInjector<Activity> activityInjector() {
-        return dispatchingAndroidInjector;
-    }
 }

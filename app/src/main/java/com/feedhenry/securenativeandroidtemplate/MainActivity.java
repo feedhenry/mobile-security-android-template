@@ -1,7 +1,6 @@
 package com.feedhenry.securenativeandroidtemplate;
 
 
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,7 +20,6 @@ import com.feedhenry.securenativeandroidtemplate.features.authentication.Authent
 import com.feedhenry.securenativeandroidtemplate.features.authentication.providers.OpenIDAuthenticationProvider;
 import com.feedhenry.securenativeandroidtemplate.features.storage.NotesDetailFragment;
 import com.feedhenry.securenativeandroidtemplate.features.storage.NotesListFragment;
-import com.feedhenry.securenativeandroidtemplate.domain.services.AuthStateService;
 import com.feedhenry.securenativeandroidtemplate.mvp.components.HttpHelper;
 import com.feedhenry.securenativeandroidtemplate.navigation.Navigator;
 
@@ -29,17 +27,13 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import dagger.android.AndroidInjection;
-import dagger.android.AndroidInjector;
-import dagger.android.DispatchingAndroidInjector;
-import dagger.android.HasFragmentInjector;
 
-public class MainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener, AuthenticationFragment.AuthenticationListener, NotesListFragment.NoteListListener, NotesDetailFragment.SaveNoteListener, AuthenticationDetailsFragment.AuthenticationDetailsListener, HasFragmentInjector {
-
-
-    @Inject
-    DispatchingAndroidInjector<Fragment> fragmentInjector;
+public class MainActivity extends BaseActivity implements
+        NavigationView.OnNavigationItemSelectedListener,
+        AuthenticationFragment.AuthenticationListener,
+        NotesListFragment.NoteListListener,
+        NotesDetailFragment.SaveNoteListener,
+        AuthenticationDetailsFragment.AuthenticationDetailsListener {
 
     @Inject
     OpenIDAuthenticationProvider authProvider;
@@ -61,11 +55,11 @@ public class MainActivity extends BaseActivity
 
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
+     *
      * @param savedInstanceState - the saved instance state
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
@@ -93,7 +87,7 @@ public class MainActivity extends BaseActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else if (navigator.canGoBack(this)){
+        } else if (navigator.canGoBack(this)) {
             navigator.goBack(this);
         } else {
             super.onBackPressed();
@@ -102,6 +96,7 @@ public class MainActivity extends BaseActivity
 
     /**
      * Handling for Sidebar Navigation
+     *
      * @param item - the menu item that was selected from the menu
      */
     @SuppressWarnings("StatementWithEmptyBody")
@@ -138,11 +133,6 @@ public class MainActivity extends BaseActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    @Override
-    public AndroidInjector<Fragment> fragmentInjector() {
-        return fragmentInjector;
     }
 
     @Override

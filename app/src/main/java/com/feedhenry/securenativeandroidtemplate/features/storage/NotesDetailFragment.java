@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -27,11 +26,9 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import butterknife.Unbinder;
-import dagger.android.AndroidInjection;
 
 /**
  * The note details view. It can load an existing note to allow user to update, or create a new note.
@@ -97,7 +94,6 @@ public class NotesDetailFragment extends BaseFragment<NoteDetailPresenter, NoteD
 
     @Override
     public void onAttach(Activity activity) {
-        AndroidInjection.inject(this);
         super.onAttach(activity);
         if (activity instanceof SaveNoteListener) {
             noteCreationListener = (SaveNoteListener) activity;
