@@ -7,21 +7,23 @@ import android.support.design.widget.Snackbar;
 
 import com.feedhenry.securenativeandroidtemplate.BaseActivity;
 import com.feedhenry.securenativeandroidtemplate.MainActivity;
+import com.feedhenry.securenativeandroidtemplate.R;
 import com.feedhenry.securenativeandroidtemplate.domain.Constants;
 import com.feedhenry.securenativeandroidtemplate.domain.models.Identity;
+import com.feedhenry.securenativeandroidtemplate.domain.models.Note;
+import com.feedhenry.securenativeandroidtemplate.domain.services.AuthStateService;
 import com.feedhenry.securenativeandroidtemplate.features.accesscontrol.AccessControlFragment;
 import com.feedhenry.securenativeandroidtemplate.features.authentication.AuthenticationDetailsFragment;
 import com.feedhenry.securenativeandroidtemplate.features.authentication.AuthenticationFragment;
 import com.feedhenry.securenativeandroidtemplate.features.device.DeviceFragment;
 import com.feedhenry.securenativeandroidtemplate.features.home.HomeFragment;
-import com.feedhenry.securenativeandroidtemplate.R;
-import com.feedhenry.securenativeandroidtemplate.domain.models.Note;
 import com.feedhenry.securenativeandroidtemplate.features.network.NetworkFragment;
 import com.feedhenry.securenativeandroidtemplate.features.storage.NotesDetailFragment;
 import com.feedhenry.securenativeandroidtemplate.features.storage.NotesListFragment;
-import com.feedhenry.securenativeandroidtemplate.domain.services.AuthStateService;
 import com.feedhenry.securenativeandroidtemplate.mvp.views.BaseFragment;
+
 import org.json.JSONException;
+
 import javax.inject.Inject;
 
 /**

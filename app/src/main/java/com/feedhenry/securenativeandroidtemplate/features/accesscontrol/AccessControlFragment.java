@@ -1,7 +1,6 @@
 package com.feedhenry.securenativeandroidtemplate.features.accesscontrol;
 
 
-import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,10 +11,10 @@ import android.widget.TextView;
 
 import com.feedhenry.securenativeandroidtemplate.R;
 import com.feedhenry.securenativeandroidtemplate.domain.Constants;
+import com.feedhenry.securenativeandroidtemplate.domain.services.AuthStateService;
 import com.feedhenry.securenativeandroidtemplate.features.accesscontrol.presenters.AccessControlViewPresenter;
 import com.feedhenry.securenativeandroidtemplate.features.accesscontrol.views.AccessControlView;
 import com.feedhenry.securenativeandroidtemplate.features.accesscontrol.views.AccessControlViewImpl;
-import com.feedhenry.securenativeandroidtemplate.domain.services.AuthStateService;
 import com.feedhenry.securenativeandroidtemplate.mvp.views.BaseFragment;
 import com.feedhenry.securenativeandroidtemplate.navigation.Navigator;
 
@@ -23,7 +22,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import dagger.android.AndroidInjection;
 
 /**
  * A simple {@link Fragment} subclass.

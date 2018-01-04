@@ -2,7 +2,6 @@ package com.feedhenry.securenativeandroidtemplate.mvp.presenters;
 
 import android.support.annotation.NonNull;
 
-import com.feedhenry.securenativeandroidtemplate.mvp.presenters.Presenter;
 import com.feedhenry.securenativeandroidtemplate.mvp.views.AppView;
 
 /**

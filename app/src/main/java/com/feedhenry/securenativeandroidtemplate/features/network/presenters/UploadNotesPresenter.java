@@ -6,20 +6,17 @@ import android.util.Log;
 import com.datatheorem.android.trustkit.TrustKit;
 import com.feedhenry.securenativeandroidtemplate.R;
 import com.feedhenry.securenativeandroidtemplate.domain.Constants;
-import com.feedhenry.securenativeandroidtemplate.domain.callbacks.Callback;
 import com.feedhenry.securenativeandroidtemplate.domain.configurations.ApiServerConfiguration;
 import com.feedhenry.securenativeandroidtemplate.domain.configurations.AppConfiguration;
 import com.feedhenry.securenativeandroidtemplate.domain.models.Note;
 import com.feedhenry.securenativeandroidtemplate.domain.repositories.NoteRepository;
 import com.feedhenry.securenativeandroidtemplate.domain.services.AuthStateService;
-import com.feedhenry.securenativeandroidtemplate.domain.services.NoteCrudlService;
 import com.feedhenry.securenativeandroidtemplate.features.network.views.UploadNotesView;
 import com.feedhenry.securenativeandroidtemplate.mvp.components.HttpHelper;
 import com.feedhenry.securenativeandroidtemplate.mvp.presenters.BasePresenter;
 
 import java.net.URL;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;

@@ -15,6 +15,7 @@ import com.feedhenry.securenativeandroidtemplate.domain.configurations.AppConfig
 import com.feedhenry.securenativeandroidtemplate.domain.configurations.AuthenticationConfiguration;
 import com.feedhenry.securenativeandroidtemplate.domain.models.Identity;
 import com.feedhenry.securenativeandroidtemplate.domain.services.AuthStateService;
+
 import net.openid.appauth.AppAuthConfiguration;
 import net.openid.appauth.AuthState;
 import net.openid.appauth.AuthorizationException;

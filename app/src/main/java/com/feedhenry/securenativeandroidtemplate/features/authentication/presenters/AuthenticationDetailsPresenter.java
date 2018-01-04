@@ -7,8 +7,6 @@ import com.feedhenry.securenativeandroidtemplate.features.authentication.provide
 import com.feedhenry.securenativeandroidtemplate.features.authentication.views.AuthenticationDetailsView;
 import com.feedhenry.securenativeandroidtemplate.mvp.presenters.BasePresenter;
 
-import net.openid.appauth.AuthState;
-
 import javax.inject.Inject;
 
 /**

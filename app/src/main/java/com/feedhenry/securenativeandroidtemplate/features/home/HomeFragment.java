@@ -1,9 +1,8 @@
 package com.feedhenry.securenativeandroidtemplate.features.home;
 
 
-import android.app.Activity;
-import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,15 +11,9 @@ import com.feedhenry.securenativeandroidtemplate.R;
 import com.feedhenry.securenativeandroidtemplate.features.home.presenters.HomeViewPresenter;
 import com.feedhenry.securenativeandroidtemplate.features.home.views.HomeView;
 import com.feedhenry.securenativeandroidtemplate.features.home.views.HomeViewImpl;
-import com.feedhenry.securenativeandroidtemplate.mvp.presenters.BasePresenter;
-import com.feedhenry.securenativeandroidtemplate.mvp.presenters.Presenter;
-import com.feedhenry.securenativeandroidtemplate.mvp.views.AppView;
-import com.feedhenry.securenativeandroidtemplate.mvp.views.BaseAppView;
 import com.feedhenry.securenativeandroidtemplate.mvp.views.BaseFragment;
 
 import javax.inject.Inject;
-
-import dagger.android.AndroidInjection;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -58,7 +51,8 @@ public class HomeFragment extends BaseFragment<HomeViewPresenter, HomeView> {
 
     @Override
     protected HomeView initView() {
-        return new HomeViewImpl(this) {};
+        return new HomeViewImpl(this) {
+        };
     }
 
     @Override

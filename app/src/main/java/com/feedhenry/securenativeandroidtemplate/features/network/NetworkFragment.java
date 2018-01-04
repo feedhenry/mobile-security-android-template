@@ -1,6 +1,5 @@
 package com.feedhenry.securenativeandroidtemplate.features.network;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -16,15 +15,12 @@ import com.feedhenry.securenativeandroidtemplate.features.network.views.UploadNo
 import com.feedhenry.securenativeandroidtemplate.features.network.views.UploadNotesViewImpl;
 import com.feedhenry.securenativeandroidtemplate.mvp.views.BaseFragment;
 
-import java.util.zip.Inflater;
-
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import dagger.android.AndroidInjection;
 
 /**
  * Created by weili on 27/10/2017.

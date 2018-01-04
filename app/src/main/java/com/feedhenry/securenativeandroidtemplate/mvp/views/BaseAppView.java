@@ -3,7 +3,6 @@ package com.feedhenry.securenativeandroidtemplate.mvp.views;
 import android.app.Fragment;
 import android.content.Context;
 import android.support.design.widget.Snackbar;
-import android.widget.Toast;
 
 import com.feedhenry.securenativeandroidtemplate.mvp.components.ProgressDialogHelper;
 

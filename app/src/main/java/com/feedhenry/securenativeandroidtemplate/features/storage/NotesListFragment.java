@@ -13,11 +13,11 @@ import android.widget.RelativeLayout;
 
 import com.feedhenry.securenativeandroidtemplate.R;
 import com.feedhenry.securenativeandroidtemplate.domain.models.Note;
-import com.feedhenry.securenativeandroidtemplate.mvp.views.BaseFragment;
 import com.feedhenry.securenativeandroidtemplate.features.storage.adapters.RVNoteAdapter;
 import com.feedhenry.securenativeandroidtemplate.features.storage.presenters.NoteListPresenter;
 import com.feedhenry.securenativeandroidtemplate.features.storage.views.NoteListAppView;
 import com.feedhenry.securenativeandroidtemplate.features.storage.views.NoteListAppViewImpl;
+import com.feedhenry.securenativeandroidtemplate.mvp.views.BaseFragment;
 
 import java.util.List;
 
@@ -27,7 +27,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import dagger.android.AndroidInjection;
 
 /**
  * A fragment to show all the local notes.
