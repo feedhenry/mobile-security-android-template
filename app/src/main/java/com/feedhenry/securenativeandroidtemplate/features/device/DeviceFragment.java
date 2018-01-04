@@ -1,6 +1,5 @@
 package com.feedhenry.securenativeandroidtemplate.features.device;
 
-import android.app.Activity;
 import android.app.KeyguardManager;
 import android.app.admin.DevicePolicyManager;
 import android.content.Context;
@@ -11,7 +10,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Debug;
 import android.provider.Settings;
-import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,8 +28,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
-import dagger.android.AndroidInjection;
 
 import static android.content.Context.KEYGUARD_SERVICE;
 

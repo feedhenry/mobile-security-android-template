@@ -11,7 +11,7 @@ import dagger.android.support.DaggerAppCompatActivity;
  * Created by weili on 12/09/2017.
  */
 
-public class BaseActivity extends DaggerAppCompatActivity {
+public abstract class BaseActivity extends DaggerAppCompatActivity {
     private String infoText;
 
     @Override
