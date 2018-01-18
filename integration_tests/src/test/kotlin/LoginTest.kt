@@ -1,6 +1,5 @@
 class LoginTest {
 
-
     fun loginLogoutTest() {
 
     }
