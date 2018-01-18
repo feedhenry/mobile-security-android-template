@@ -1,0 +1,7 @@
+class LoginTest {
+
+
+    fun loginLogoutTest() {
+
+    }
+}
