@@ -1,0 +1,62 @@
+apply plugin: 'de.fuerstenau.buildconfig'
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    testCompile "org.jetbrains.kotlin:kotlin-test"
+    testCompile "org.jetbrains.kotlin:kotlin-test-junit"
+    testCompile 'io.appium:java-client:5.0.4'
+
+}
+
+buildscript {
+    ext.kotlin_version = '1.2.20'
+    repositories {
+        mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'gradle.plugin.de.fuerstenau:BuildConfigPlugin:1.1.8'
+    }
+}
+
+
+sourceSets.main.java {
+    srcDir new File(buildDir, 'gen')  //includes buildConfig
+}
+
+buildConfig {
+    packageName = "com.feedhenry.secureandroidtemplate.integrationtests"
+    buildConfigField 'String', 'ADB_EXECUTABLE', "/usr/bin/adb"
+    buildConfigField 'String', 'NODEJS_DIRECTORY', "/home/vsazel/.nvm/versions/node/v9.4.0"
+    buildConfigField 'String', 'TESTED_PACKAGE', 'com.feedhenry.securenativeandroidtemplate'
+    buildConfigField 'String', 'BROWSER_PACKAGE', 'org.chromium.webview_shell'
+    buildConfigField 'String', 'TEST_APK', "$projectDir/../app/build/outputs/apk/debug/app-debug.apk"
+    buildConfigField 'String', 'APPIUM_IP_ADDRESS', "127.0.0.1"
+    buildConfigField 'Integer', 'APPIUM_IP_PORT', "4723"
+    buildConfigField 'Boolean', 'START_LOCAL_SERVER', "false"  //still not working, only false works.
+
+
+}
+
+repositories {
+    mavenCentral()
+}
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+
