@@ -16,9 +16,9 @@ podTemplate(
       checkout scm
     }
 
-    stage ("Lint") {
-      sh "./gradlew lint"
-    }
+    //stage ("Lint") {
+    //  sh "./gradlew lint"
+    //}
 
     stage ("Build") {
       sh "./gradlew testDebug"
