@@ -141,6 +141,8 @@ public class DeviceFragment extends BaseFragment<DevicePresenter, DeviceView> {
     }
 
     public void runTests() {
+        totalTests = 0;
+        totalTestFailures = 0;
 
         // perform detections
         detectRoot();
@@ -333,5 +335,10 @@ public class DeviceFragment extends BaseFragment<DevicePresenter, DeviceView> {
             WarningDialog warning = new WarningDialog();
             warning.show(getFragmentManager(), "device_warning");
         }
+    }
+
+    @OnClick(R.id.refresh_score_btn)
+    public void refreshScore() {
+        runTests();
     }
 }
